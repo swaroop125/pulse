@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: esp32-pulse-monitor
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /data/pulse.db   # Persistent disk path
+
+    # Persistent disk — keeps SQLite DB across deploys (5 GB free tier)
+    disk:
+      name: pulse-db
+      mountPath: /data
+      sizeGB: 1
