@@ -617,6 +617,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 // Refresh bar chart every 60 seconds
 setInterval(loadBuckets, 60000);
+setInterval(loadStats, 60000);
 
 // ─── PULSE LOG ───────────────────────────────────────────────────
 function addLogLine(pulse) {
@@ -685,8 +686,7 @@ function connect() {
       // Build log from history
       const sorted = [...msg.pulses].sort((a,b) => b.server_time - a.server_time);
       sorted.slice(0, 20).forEach(p => addLogLine(p));
-      totalCount = msg.pulses.length;
-      updateStats();
+      loadStats();
     }
 
     if (msg.type === 'PULSE') {
